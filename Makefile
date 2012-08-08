@@ -77,8 +77,6 @@ all:
 upload:
     ifdef DEVICE
 		DEVICE_CMD = " -s "$(DEVICE)
-    else
-		DEVICE_CMD = ""
     endif
 	@echo "\nUploading to device..."
 	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*.apk
