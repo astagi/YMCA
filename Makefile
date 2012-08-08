@@ -7,7 +7,7 @@
 # Makefile for building Android apps using Ant
 # License: MIT
 #
-# Copyright (C) 2011, 1012 Andrea Stagi <stagi.andrea@gmail.com>.
+# Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#
 #_______________________________________________________________________________
+#
 # Here is a complete list of configuration parameters:
 #
 # ANDROID_SDK  The path where the Android SDK is placed on your system.
@@ -43,9 +43,9 @@
 #
 # all          This is the default if no goal is specified.  It builds the apk.
 #
-# upload       Uploads the last built target to an attached Android device.
-#
 # clean        Deletes files created during the build.
+#
+# upload       Uploads the last built target to an attached Android device.
 #
 # sign         Generate a signed package.
 #
@@ -55,7 +55,6 @@
 #
 # targets      Prints the list of all available targets.
 #_______________________________________________________________________________
-#
 
 ifneq ($(wildcard YMCA.conf),) 
 	include YMCA.conf

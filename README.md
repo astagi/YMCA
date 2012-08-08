@@ -29,24 +29,24 @@ You can specify them into an YMCA.conf file placed in the same directory of the 
 Goals
 -----
 
-- all          This is the default if no goal is specified.  It builds the apk.
+- all:          This is the default if no goal is specified.  It builds the apk.
 
-- upload       Uploads the last built target to an attached Android device.
+- clean:        Deletes files created during the build.
 
-- clean        Deletes files created during the build.
+- upload:       Uploads the last built target to an attached Android device.
 
-- sign         TODO Generate a signed package.
+- sign:         TODO Generate a signed package.
 
-- restartadb   TODO Restarts adb. Sometimes needed.
+- restartadb:   Restarts adb. Sometimes needed.
 
-- devices      TODO Prints the list of all available devices.
+- devices:      TODO Prints the list of all available devices.
 
-- targets      TODO Prints the list of all available targets.
+- targets:      TODO Prints the list of all available targets.
 
-Licence
--------
+Licence MIT
+-----------
 
-Copyright (C) 2011, 1012 Andrea Stagi <stagi.andrea@gmail.com>.
+Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
