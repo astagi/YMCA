@@ -88,7 +88,8 @@ clean:
 
 sign:
 	@echo "\nGenerating a signed apk..."
-	@echo "\nTODO..."
+	#Write the file ant.properties
+	#Call ant release
 
 restartadb:
 	@echo "\nRestarting adb..."
