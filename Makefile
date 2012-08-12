@@ -101,6 +101,4 @@ devices:
 	@echo "\nTODO..."
 
 targets:
-	@echo "\nLIST OF THE AVAILABLE TARGETS"
-	@echo "\n-----------------------------"
-	@echo "\nTODO..."
+	$(ANDROID_SDK)/tools/android list

@@ -41,7 +41,7 @@ Goals
 
 - devices:      TODO Prints the list of all available devices.
 
-- targets:      TODO Prints the list of all available targets.
+- targets:      Prints the list of all available targets.
 
 Licence MIT
 -----------
