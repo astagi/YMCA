@@ -2,7 +2,7 @@
 #
 #                            YMCA - You Make Cool Apps
 #_______________________________________________________________________________
-#                                                                    version 0.1
+#                                                                    version 0.2
 # Author: Andrea Stagi (4ndreaSt4gi)
 # Makefile for building Android apps using Ant
 # License: MIT
