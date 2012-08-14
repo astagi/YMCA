@@ -69,7 +69,7 @@ endif
 all:
     ifdef TARGET
 		@echo "\nUpdating the project..."
-		$(ANDROID_SDK)/tools/android update project --path ./ --target $(TARGET)
+		@$(ANDROID_SDK)/tools/android update project --path ./ --target $(TARGET)
     else
         ifeq ($(wildcard build.xml),) 
 			$(error "\nERROR! Use make TARGET=N. For a complete list, type 'Makefile targets'.")
@@ -77,13 +77,13 @@ all:
     endif
 
 	@echo "\nBuilding debug apk..."
-	ant debug
+	@ant debug
 
 upload:
 	@echo "\nUploading to device..."
-	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
+	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
 	@echo "\nLaunching the main activity..."
-	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
 
 clean:
 	@echo "\nCleaning the project..."
@@ -100,7 +100,7 @@ restartadb:
 	sudo $(ANDROID_SDK)/platform-tools/adb start-server
 
 devices:
-	$(ANDROID_SDK)/platform-tools/adb devices
+	@$(ANDROID_SDK)/platform-tools/adb devices
 
 targets:
-	$(ANDROID_SDK)/tools/android list
+	@$(ANDROID_SDK)/tools/android list
