@@ -62,6 +62,10 @@ ifneq ($(wildcard YMCA.conf),)
 	include YMCA.conf
 endif
 
+ifdef DEVICE
+	DEVICE_CMD:= -s $(DEVICE)
+endif
+
 all:
     ifdef TARGET
 		@echo "\nUpdating the project..."
@@ -76,9 +80,6 @@ all:
 	ant debug
 
 upload:
-    ifdef DEVICE
-		DEVICE_CMD = " -s "$(DEVICE)
-    endif
 	@echo "\nUploading to device..."
 	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
 	@echo "\nLaunching the main activity..."
