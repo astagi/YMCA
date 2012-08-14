@@ -22,7 +22,7 @@ You can specify them into an YMCA.conf file placed in the same directory of the 
 
 - TARGET       The Android target. For a complete list, type Makefile targets.
 
-- DEVICE       The device where you want to run your app on.
+- DEVICE       The device id where you want to run your app on. (#TODO set to ALL)
 
 - ACTIVITY     The main activity you want to run.
 
@@ -35,11 +35,11 @@ Goals
 
 - upload:       Uploads the last built target to an attached Android device.
 
-- sign:         TODO Generate a signed package.
+- sign:         #TODO Generate a signed package.
 
 - restartadb:   Restarts adb. Sometimes needed.
 
-- devices:      TODO Prints the list of all available devices.
+- devices:      Prints the list of all available devices.
 
 - targets:      Prints the list of all available targets.
 
