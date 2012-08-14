@@ -41,19 +41,21 @@
 # This makefile also defines the following goals for use on the command line
 # when you run make:
 #
-# all          This is the default if no goal is specified.  It builds the apk.
+# all            This is the default if no goal is specified.  It builds the apk.
 #
-# clean        Deletes files created during the build.
+# clean          Deletes files created during the build.
 #
-# upload       Uploads the last built target to an attached Android device.
+# upload         Uploads the last debug apk to an attached Android device.
 #
-# sign         Generate a signed package.
+# upload-signed  Uploads the last signed apk to an attached Android device.
 #
-# restartadb   Restarts adb. Sometimes needed.
+# sign           Generate a signed package.
 #
-# devices      Prints the list of all available devices.
+# restartadb     Restarts adb. Sometimes needed.
 #
-# targets      Prints the list of all available targets.
+# devices        Prints the list of all available devices.
+#
+# targets        Prints the list of all available targets.
 #_______________________________________________________________________________
 
 ifneq ($(wildcard YMCA.conf),) 
@@ -78,7 +80,7 @@ upload:
 		DEVICE_CMD = " -s "$(DEVICE)
     endif
 	@echo "\nUploading to device..."
-	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*.apk
+	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
 	@echo "\nLaunching the main activity..."
 	$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
 
