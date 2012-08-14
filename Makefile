@@ -100,9 +100,7 @@ restartadb:
 	sudo $(ANDROID_SDK)/platform-tools/adb start-server
 
 devices:
-	@echo "\nLIST OF THE AVAILABLE DEVICES"
-	@echo "\n-----------------------------"
-	@echo "\nTODO..."
+	$(ANDROID_SDK)/platform-tools/adb devices
 
 targets:
 	$(ANDROID_SDK)/tools/android list
