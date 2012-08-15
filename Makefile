@@ -34,7 +34,7 @@
 #
 # TARGET       The Android target. For a complete list, type Makefile targets.
 #
-# DEVICE       The device where you want to run your app on.
+# DEVICE       The device where you want to run your app on. Set ALL for all devices.
 #
 # ACTIVITY     The main activity you want to run.
 #
@@ -62,8 +62,12 @@ ifneq ($(wildcard YMCA.conf),)
 	include YMCA.conf
 endif
 
-ifdef DEVICE
-	DEVICE_CMD:= -s $(DEVICE)
+ifeq ($(DEVICE) , ALL)
+	ALL_DEVS=$(shell $(ANDROID_SDK)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
+else
+    ifdef DEVICE
+		DEVICE_CMD= -s $(DEVICE)
+    endif
 endif
 
 all:
@@ -80,10 +84,17 @@ all:
 	@ant debug
 
 upload:
-	@echo "\nUploading to device..."
-	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
-	@echo "\nLaunching the main activity..."
-	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+    ifeq ($(DEVICE) , ALL)
+		@echo "\nUploading on all the devices attached..."
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*debug.apk;)
+		@echo "\nLaunching the main activity on all the devices attached..."
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+    else
+		@echo "\nUploading on device..."
+		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
+		@echo "\nLaunching the main activity..."
+		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+    endif
 
 clean:
 	@echo "\nCleaning the project..."

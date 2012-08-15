@@ -22,7 +22,7 @@ You can specify them into an YMCA.conf file placed in the same directory of the 
 
 - TARGET       The Android target. For a complete list, type Makefile targets.
 
-- DEVICE       The device id where you want to run your app on. (#TODO set to ALL)
+- DEVICE       The device id where you want to run your app on. Set ALL for all devices.
 
 - ACTIVITY     The main activity you want to run.
 
