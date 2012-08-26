@@ -45,17 +45,17 @@
 #
 # clean          Deletes files created during the build.
 #
-# upload         Uploads the last debug apk to an attached Android device.
-#
-# upload-signed  Uploads the last signed apk to an attached Android device.
+# upload         Uploads the last debug apk to an attached Android DEVICE.
 #
 # sign           Generate a signed package.
 #
 # restartadb     Restarts adb. Sometimes needed.
 #
-# devices        Prints the list of all available devices.
+# devices        Prints the list of all available DEVICEs.
 #
 # targets        Prints the list of all available targets.
+#
+# log            Shows the log of a specified DEVICE.
 #_______________________________________________________________________________
 
 ifneq ($(wildcard YMCA.conf),) 
@@ -101,8 +101,8 @@ clean:
 	ant clean
 
 sign:
-	@echo "\nGenerating a signed apk..."
-	#Write the file ant.properties
+	@echo "\n(TODO)Generates a signed apk..."
+	#Append to the file ant.properties
 	#Call ant release
 
 restartadb:
@@ -115,3 +115,6 @@ devices:
 
 targets:
 	@$(ANDROID_SDK)/tools/android list
+
+log:
+	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) logcat
