@@ -1,9 +1,10 @@
-#_______________________________________________________________________________
+#______________________________________________________________________________________
 #
-#                            YMCA - You Make Cool Apps
-#_______________________________________________________________________________
-#                                                                    version 0.3
-# Author: Andrea Stagi (4ndreaSt4gi)
+#                                YMCA - You Make Cool Apps
+#______________________________________________________________________________________
+#                                                                           version 0.3
+# Author: Andrea Stagi (@4ndreaSt4gi)
+# https://github.com/4ndreaSt4gi/YMCA
 # Makefile for building Android apps using Ant
 # License: MIT
 #
@@ -26,37 +27,39 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#_______________________________________________________________________________
+#______________________________________________________________________________________
 #
 # Here is a complete list of configuration parameters:
 #
-# ANDROID_SDK  The path where the Android SDK is placed on your system.
+# ANDROID_SDK    The path where the Android SDK is placed on your system.
 #
-# TARGET       The Android target. For a complete list, type Makefile targets.
+# TARGET         The Android target. For a complete list, type Makefile targets.
 #
-# DEVICE       The device where you want to run your app on. Set ALL for all devices.
+# DEVICE         The device where you want to run your app on. Set to ALL for uploading
+#                your app on all devices attached.
 #
-# ACTIVITY     The main activity you want to run.
+# ACTIVITY       The main activity you want to run.
 #
 # This makefile also defines the following goals for use on the command line
 # when you run make:
 #
-# all            This is the default if no goal is specified.  It builds the apk.
+# all            This is the default goal if no one is specified. It builds the apk.
 #
 # clean          Deletes files created during the build.
 #
-# upload         Uploads the last debug apk to an attached Android DEVICE.
+# upload         Uploads the last debug apk on an attached Android DEVICE.
+#                Set DEVICE to a specified target, or to ALL for every device attached.
 #
-# sign           Generate a signed package.
+# sign           (TODO)Generate a signed package.
 #
 # restartadb     Restarts adb. Sometimes needed.
 #
-# devices        Prints the list of all available DEVICEs.
+# devices        Shows the list of all available DEVICEs.
 #
-# targets        Prints the list of all available targets.
+# targets        Shows the list of all available targets.
 #
-# log            Shows the log of a specified DEVICE.
-#_______________________________________________________________________________
+# log            Shows the log of a specified DEVICE. Set DEVICE to a specified target.
+#______________________________________________________________________________________
 
 ifneq ($(wildcard YMCA.conf),) 
 	include YMCA.conf

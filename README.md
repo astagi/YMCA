@@ -3,14 +3,14 @@ YMCA (You Make Cool Apps)
 
 Makefile for building Android apps using Ant.
 
-I made it cause I'm on vacation and I brought just my netbook with me. Do you think I wanna run Eclipse on it? :)
+I made it cause I'm on vacation and I brought just my slow netbook with me. Do you think I wanna run Eclipse on it? :)
 
 Requirements
 ------------
 
 - Ant (http://ant.apache.org/)
 
-- Android SDK (if you haven't it yet, http://developer.android.com/sdk/)
+- Android SDK (http://developer.android.com/sdk/)
 
 
 Configuration parameters
@@ -22,26 +22,28 @@ You can specify them into an YMCA.conf file placed in the same directory of the 
 
 - TARGET       The Android target. For a complete list, type Makefile targets.
 
-- DEVICE       The device id where you want to run your app on. Set ALL for all devices.
+- DEVICE       The device id where you want to run a command on. Set to ALL for uploading your app on all devices attached.
 
 - ACTIVITY     The main activity you want to run.
 
 Goals
 -----
 
-- all:          This is the default if no goal is specified.  It builds the apk.
+- all:          This is the default goal if no one is specified. It builds the apk.
 
 - clean:        Deletes files created during the build.
 
-- upload:       Uploads the last built target to an attached Android device.
+- upload:       Uploads the last debug apk on an attached Android device. Set DEVICE to a specified target, or to ALL for every device attached.
 
 - sign:         #TODO Generate a signed package.
 
 - restartadb:   Restarts adb. Sometimes needed.
 
-- devices:      Prints the list of all available devices.
+- devices:      Shows the list of all available DEVICEs.
 
-- targets:      Prints the list of all available targets.
+- targets:      Shows the list of all available targets.
+
+- log:          Shows the log of a specified DEVICE. Set DEVICE to a specified target.
 
 Licence MIT
 -----------
