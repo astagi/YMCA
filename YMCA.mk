@@ -2,7 +2,7 @@
 #
 #                                YMCA - You Make Cool Apps
 #______________________________________________________________________________________
-#                                                                           version 0.4
+#                                                                           version 1.0
 # Author: Andrea Stagi (@4ndreaSt4gi)
 # https://github.com/4ndreaSt4gi/YMCA
 # Makefile for building Android apps using Ant
