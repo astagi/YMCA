@@ -3,7 +3,7 @@ YMCA (You Make Cool Apps)
 
 Makefile for building Android apps using Ant.
 
-I made it cause I'm on vacation and I brought just my slow netbook with me. Do you think I wanna run Eclipse on it? :)
+I made it cause I'm on vacation and I have just my (slow^33) netbook with me. Do you think I wanna run Eclipse on it? :)
 
 Requirements
 ------------
@@ -15,8 +15,6 @@ Requirements
 
 Configuration parameters
 ------------------------
-
-You can specify them into an YMCA.conf file placed in the same directory of the Makefile using this format: PARAMETER_NAME=value. An example is included in the source.
 
 - ANDROID_SDK  The path where the Android SDK is placed on your system.
 
@@ -33,9 +31,11 @@ Goals
 
 - clean:        Deletes files created during the build.
 
+- sign:         Generate a signed package.
+
 - upload:       Uploads the last debug apk on an attached Android device. Set DEVICE to a specified target, or to ALL for every device attached.
 
-- sign:         #TODO Generate a signed package.
+- upload-release Uploads the last signed apk on an attached Android DEVICE. Set DEVICE to a specified target, ALL for every device attached.
 
 - restartadb:   Restarts adb. Sometimes needed.
 

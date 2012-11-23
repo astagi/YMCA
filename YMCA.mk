@@ -48,9 +48,12 @@
 # clean          Deletes files created during the build.
 #
 # upload         Uploads the last debug apk on an attached Android DEVICE.
-#                Set DEVICE to a specified target, or to ALL for every device attached.
+#                Set DEVICE to a specified target, ALL for every device attached.
 #
-# sign           (TODO)Generate a signed package.
+# upload-release Uploads the last signed apk on an attached Android DEVICE.
+#                Set DEVICE to a specified target, ALL for every device attached.
+#
+# sign           Generate a signed package.
 #
 # restartadb     Restarts adb. Sometimes needed.
 #
@@ -60,10 +63,6 @@
 #
 # log            Shows the log of a specified DEVICE. Set DEVICE to a specified target.
 #______________________________________________________________________________________
-
-ifneq ($(wildcard YMCA.conf),) 
-	include YMCA.conf
-endif
 
 ifeq ($(DEVICE) , ALL)
 	ALL_DEVS=$(shell $(ANDROID_SDK)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
@@ -99,14 +98,40 @@ upload:
 		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
     endif
 
+upload-release:
+    ifeq ($(DEVICE) , ALL)
+		@echo "\nUploading on all the devices attached..."
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*release.apk;)
+		@echo "\nLaunching the main activity on all the devices attached..."
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+    else
+		@echo "\nUploading on device..."
+		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*release.apk
+		@echo "\nLaunching the main activity..."
+		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+    endif
+
 clean:
 	@echo "\nCleaning the project..."
 	ant clean
 
 sign:
-	@echo "\n(TODO)Generates a signed apk..."
-	#Append to the file ant.properties
-	#Call ant release
+	@echo "\nGenerating a signed apk..."
+    ifneq ($(wildcard ant.properties),)
+	@cat ant.properties > .ant.propertiestmp
+    endif
+	@echo "" >> ant.properties
+	@echo "key.store=$(KEY_STORE)\nkey.alias=$(KEY_ALIAS)" >> ant.properties
+    ifdef KEY_STORE_PASSWORD
+        ifdef KEY_ALIAS_PASSWORD
+		    @echo "key.alias.password=$(KEY_ALIAS_PASSWORD)\nkey.store.password=$(KEY_STORE_PASSWORD)" >> ant.properties
+        endif
+    endif
+    ifneq ($(wildcard ant.properties),)
+	ant release
+    endif
+	@cat .ant.propertiestmp > ant.properties
+	@rm .ant.propertiestmp
 
 restartadb:
 	@echo "\nRestarting adb..."

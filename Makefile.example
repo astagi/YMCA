@@ -1,0 +1,8 @@
+TARGET=11
+ACTIVITY=com.as/com.as.mainapp
+KEY_STORE=/home/andrea/keystore
+KEY_ALIAS=andrea
+KEY_STORE_PASSWORD=andreapsw
+KEY_ALIAS_PASSWORD=keyaliaspsw
+
+include YMCA.mk

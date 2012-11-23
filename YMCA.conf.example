@@ -1,6 +1,0 @@
-TARGET=11
-ACTIVITY=org.mobile.turpial/org.mobile.turpial.TurpialActivity
-KEY_STORE=andrea.keystore
-KEY_ALIAS=turpial
-KEY_STORE_PSW=storesecret
-KEY_ALIAS_PSW=turpialsecret
