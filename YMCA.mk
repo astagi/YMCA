@@ -1,11 +1,13 @@
 #______________________________________________________________________________________
-#
-#                                YMCA - You Make Cool Apps
+#                             _ _   _____   ___   ___
+#                            | v | |     | |  _| | _ |
+#                             |_|  |_|_|_| |___| |_|_|
 #______________________________________________________________________________________
 #                                                                           version 1.0
+# YMCA (You Make Cool Apps)
+# Description: Makefile for building Android apps using Ant
 # Author: Andrea Stagi (@4ndreaSt4gi)
-# https://github.com/4ndreaSt4gi/YMCA
-# Makefile for building Android apps using Ant
+# Source: https://github.com/4ndreaSt4gi/YMCA
 # License: MIT
 #
 # Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
@@ -118,20 +120,22 @@ clean:
 sign:
 	@echo "\nGenerating a signed apk..."
     ifneq ($(wildcard ant.properties),)
-	@cat ant.properties > .ant.propertiestmp
+	@cat ant.properties > /tmp/ant.properties
     endif
 	@echo "" >> ant.properties
-	@echo "key.store=$(KEY_STORE)\nkey.alias=$(KEY_ALIAS)" >> ant.properties
+	@echo "key.store=$(KEY_STORE)" >> ant.properties
+	@echo "key.alias=$(KEY_ALIAS)" >> ant.properties
     ifdef KEY_STORE_PASSWORD
         ifdef KEY_ALIAS_PASSWORD
-		    @echo "key.alias.password=$(KEY_ALIAS_PASSWORD)\nkey.store.password=$(KEY_STORE_PASSWORD)" >> ant.properties
+		    @echo "key.alias.password=$(KEY_ALIAS_PASSWORD)" >> ant.properties
+		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> ant.properties
         endif
     endif
     ifneq ($(wildcard ant.properties),)
 	ant release
     endif
-	@cat .ant.propertiestmp > ant.properties
-	@rm .ant.propertiestmp
+	@cat /tmp/ant.properties > ant.properties
+	@rm /tmp/ant.properties
 
 restartadb:
 	@echo "\nRestarting adb..."
