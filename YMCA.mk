@@ -120,22 +120,30 @@ clean:
 sign:
 	@echo "\nGenerating a signed apk..."
     ifneq ($(wildcard ant.properties),)
-	@cat ant.properties > /tmp/ant.properties
+	@cat ant.properties > .ant.propertiestmp
+    ifneq ($(wildcard build.properties),)
+	@cat build.properties > .build.propertiestmp
     endif
 	@echo "" >> ant.properties
+	@echo "" >> build.properties
 	@echo "key.store=$(KEY_STORE)" >> ant.properties
 	@echo "key.alias=$(KEY_ALIAS)" >> ant.properties
+	@echo "key.store=$(KEY_STORE)" >> build.properties
+	@echo "key.alias=$(KEY_ALIAS)" >> build.properties
     ifdef KEY_STORE_PASSWORD
         ifdef KEY_ALIAS_PASSWORD
 		    @echo "key.alias.password=$(KEY_ALIAS_PASSWORD)" >> ant.properties
 		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> ant.properties
+		    @echo "key.alias.password=$(KEY_ALIAS_PASSWORD)" >> build.properties
+		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> build.properties
         endif
     endif
-    ifneq ($(wildcard ant.properties),)
 	ant release
     endif
-	@cat /tmp/ant.properties > ant.properties
-	@rm /tmp/ant.properties
+	@cat .ant.propertiestmp > ant.properties
+	@cat .build.propertiestmp > build.properties
+	@rm .ant.propertiestmp
+	@rm .build.propertiestmp
 
 restartadb:
 	@echo "\nRestarting adb..."
