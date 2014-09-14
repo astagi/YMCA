@@ -3,14 +3,14 @@
 #                            | v | |     | |  _| | _ |
 #                             |_|  |_|_|_| |___| |_|_|
 #______________________________________________________________________________________
-#                                                                           version 1.0
+#                                                                           version 2.0dev
 # YMCA (You Make Cool Apps)
 # Description: Makefile for building Android apps using Ant
-# Author: Andrea Stagi (@4ndreaSt4gi)
-# Source: https://github.com/4ndreaSt4gi/YMCA
+# Author: Andrea Stagi (@astagi)
+# Source: https://github.com/astagi/YMCA
 # License: MIT
 #
-# Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
+# Copyright (C) 2012-2014 Andrea Stagi <stagi.andrea@gmail.com>.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ all:
 		@echo "\nUpdating the project..."
 		@$(ANDROID_SDK)/tools/android update project --path ./ --target $(TARGET)
     else
-        ifeq ($(wildcard build.xml),) 
+        ifeq ($(wildcard build.xml),)
 			$(error "\nERROR! Use make TARGET=N. For a complete list, type 'Makefile targets'.")
         endif
     endif
