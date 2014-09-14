@@ -77,15 +77,13 @@ endif
 all:
     ifdef TARGET
 		@echo "\nUpdating the project..."
-		@$(ANDROID_SDK)/tools/android update project --path ./ --target $(TARGET)
+		@$(ANDROID_SDK)/tools/android update project -p . --subprojects --target $(TARGET)
     else
-        ifeq ($(wildcard build.xml),)
-			$(error "\nERROR! Use make TARGET=N. For a complete list, type 'Makefile targets'.")
-        endif
+		@$(ANDROID_SDK)/tools/android update project -p . --subprojects
     endif
 
 	@echo "\nBuilding debug apk..."
-	@ant debug
+	@ant -Dsdk.dir=$(ANDROID_SDK)
 
 upload:
     ifeq ($(DEVICE) , ALL)
@@ -115,7 +113,7 @@ upload-release:
 
 clean:
 	@echo "\nCleaning the project..."
-	ant clean
+	ant clean -Dsdk.dir=$(ANDROID_SDK)
 
 sign:
 	@echo "\nGenerating a signed apk..."
