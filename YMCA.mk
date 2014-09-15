@@ -115,7 +115,7 @@ clean:
 	@echo "\nCleaning the project..."
 	ant clean -Dsdk.dir=$(ANDROID_SDK)
 
-sign:
+signed:
 	@echo "\nGenerating a signed apk..."
     ifneq ($(wildcard ant.properties),)
 	@cat ant.properties > .ant.propertiestmp
@@ -136,7 +136,7 @@ sign:
 		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> build.properties
         endif
     endif
-	ant release
+	ant release -Dsdk.dir=$(ANDROID_SDK)
     endif
 	@cat .ant.propertiestmp > ant.properties
 	@cat .build.propertiestmp > build.properties
