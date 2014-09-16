@@ -33,7 +33,7 @@
 #
 # Here is a complete list of configuration parameters:
 #
-# ANDROID_SDK    The path where the Android SDK is placed on your system.
+# ANDROID_HOME    The path where the Android SDK is placed on your system.
 #
 # TARGET         The Android target. For a complete list, type Makefile targets.
 #
@@ -67,7 +67,7 @@
 #______________________________________________________________________________________
 
 ifeq ($(DEVICE) , ALL)
-	ALL_DEVS=$(shell $(ANDROID_SDK)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
+	ALL_DEVS=$(shell $(ANDROID_HOME)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
 else
     ifdef DEVICE
 		DEVICE_CMD= -s $(DEVICE)
@@ -77,43 +77,43 @@ endif
 all:
     ifdef TARGET
 		@echo "\nUpdating the project..."
-		@$(ANDROID_SDK)/tools/android update project -p . --subprojects --target $(TARGET)
+		@$(ANDROID_HOME)/tools/android update project -p . --subprojects --target $(TARGET)
     else
-		@$(ANDROID_SDK)/tools/android update project -p . --subprojects
+		@$(ANDROID_HOME)/tools/android update project -p . --subprojects
     endif
 
 	@echo "\nBuilding debug apk..."
-	@ant -Dsdk.dir=$(ANDROID_SDK)
+	@ant -Dsdk.dir=$(ANDROID_HOME)
 
 upload:
     ifeq ($(DEVICE) , ALL)
 		@echo "\nUploading on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*debug.apk;)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb -s $(dev) install -r ./bin/*debug.apk;)
 		@echo "\nLaunching the main activity on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
     else
 		@echo "\nUploading on device..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
 		@echo "\nLaunching the main activity..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
     endif
 
 upload-release:
     ifeq ($(DEVICE) , ALL)
 		@echo "\nUploading on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*release.apk;)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb -s $(dev) install -r ./bin/*release.apk;)
 		@echo "\nLaunching the main activity on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
     else
 		@echo "\nUploading on device..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*release.apk
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*release.apk
 		@echo "\nLaunching the main activity..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
     endif
 
 clean:
 	@echo "\nCleaning the project..."
-	ant clean -Dsdk.dir=$(ANDROID_SDK)
+	ant clean -Dsdk.dir=$(ANDROID_HOME)
 
 signed:
 	@echo "\nGenerating a signed apk..."
@@ -136,7 +136,7 @@ signed:
 		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> build.properties
         endif
     endif
-	ant release -Dsdk.dir=$(ANDROID_SDK)
+	ant release -Dsdk.dir=$(ANDROID_HOME)
     endif
 	@cat .ant.propertiestmp > ant.properties
 	@cat .build.propertiestmp > build.properties
@@ -145,14 +145,14 @@ signed:
 
 restartadb:
 	@echo "\nRestarting adb..."
-	sudo $(ANDROID_SDK)/platform-tools/adb kill-server
-	sudo $(ANDROID_SDK)/platform-tools/adb start-server
+	sudo $(ANDROID_HOME)/platform-tools/adb kill-server
+	sudo $(ANDROID_HOME)/platform-tools/adb start-server
 
 devices:
-	@$(ANDROID_SDK)/platform-tools/adb devices
+	@$(ANDROID_HOME)/platform-tools/adb devices
 
 targets:
-	@$(ANDROID_SDK)/tools/android list
+	@$(ANDROID_HOME)/tools/android list
 
 log:
-	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) logcat
+	@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) logcat
