@@ -3,14 +3,14 @@
 #                            | v | |     | |  _| | _ |
 #                             |_|  |_|_|_| |___| |_|_|
 #______________________________________________________________________________________
-#                                                                           version 1.0
+#                                                                        version 2.0dev
 # YMCA (You Make Cool Apps)
-# Description: Makefile for building Android apps using Ant
-# Author: Andrea Stagi (@4ndreaSt4gi)
-# Source: https://github.com/4ndreaSt4gi/YMCA
+# Description: Makefile for building and running Android apps using Ant
+# Author: Andrea Stagi (@astagi)
+# Source: https://github.com/astagi/YMCA
 # License: MIT
 #
-# Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
+# Copyright (C) 2012-2014 Andrea Stagi <stagi.andrea@gmail.com>.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -33,12 +33,12 @@
 #
 # Here is a complete list of configuration parameters:
 #
-# ANDROID_SDK    The path where the Android SDK is placed on your system.
+# ANDROID_HOME   The path where the Android SDK is placed on your system.
 #
 # TARGET         The Android target. For a complete list, type Makefile targets.
 #
-# DEVICE         The device where you want to run your app on. Set to ALL for uploading
-#                your app on all devices attached.
+# DEVICE         The device where you want to run your app on.
+#                Set to ALL for uploading your app on all devices attached.
 #
 # ACTIVITY       The main activity you want to run.
 #
@@ -55,7 +55,7 @@
 # upload-release Uploads the last signed apk on an attached Android DEVICE.
 #                Set DEVICE to a specified target, ALL for every device attached.
 #
-# sign           Generate a signed package.
+# signed         Generate a signed package.
 #
 # restartadb     Restarts adb. Sometimes needed.
 #
@@ -67,7 +67,7 @@
 #______________________________________________________________________________________
 
 ifeq ($(DEVICE) , ALL)
-	ALL_DEVS=$(shell $(ANDROID_SDK)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
+	ALL_DEVS=$(shell $(ANDROID_HOME)/platform-tools/adb devices | grep '[A-Z0-9][A-Z0-9][A-Z0-9]*' | tr '\t[a-z]' ' ' | tr '\n' ' ')
 else
     ifdef DEVICE
 		DEVICE_CMD= -s $(DEVICE)
@@ -77,47 +77,45 @@ endif
 all:
     ifdef TARGET
 		@echo "\nUpdating the project..."
-		@$(ANDROID_SDK)/tools/android update project --path ./ --target $(TARGET)
+		@$(ANDROID_HOME)/tools/android update project -p . --subprojects --target $(TARGET)
     else
-        ifeq ($(wildcard build.xml),) 
-			$(error "\nERROR! Use make TARGET=N. For a complete list, type 'Makefile targets'.")
-        endif
+		@$(ANDROID_HOME)/tools/android update project -p . --subprojects
     endif
 
 	@echo "\nBuilding debug apk..."
-	@ant debug
+	@ant -Dsdk.dir=$(ANDROID_HOME)
 
 upload:
     ifeq ($(DEVICE) , ALL)
 		@echo "\nUploading on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*debug.apk;)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb -s $(dev) install -r ./bin/*debug.apk;)
 		@echo "\nLaunching the main activity on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
     else
 		@echo "\nUploading on device..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*debug.apk
 		@echo "\nLaunching the main activity..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
     endif
 
 upload-release:
     ifeq ($(DEVICE) , ALL)
 		@echo "\nUploading on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb -s $(dev) install -r ./bin/*release.apk;)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb -s $(dev) install -r ./bin/*release.apk;)
 		@echo "\nLaunching the main activity on all the devices attached..."
-		$(foreach dev, $(ALL_DEVS),$(ANDROID_SDK)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
+		$(foreach dev, $(ALL_DEVS),$(ANDROID_HOME)/platform-tools/adb  -s $(dev) shell am start -n $(ACTIVITY);)
     else
 		@echo "\nUploading on device..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*release.apk
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) install -r ./bin/*release.apk
 		@echo "\nLaunching the main activity..."
-		@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
+		@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) shell am start -n $(ACTIVITY)
     endif
 
 clean:
 	@echo "\nCleaning the project..."
-	ant clean
+	ant clean -Dsdk.dir=$(ANDROID_HOME)
 
-sign:
+signed:
 	@echo "\nGenerating a signed apk..."
     ifneq ($(wildcard ant.properties),)
 	@cat ant.properties > .ant.propertiestmp
@@ -138,7 +136,7 @@ sign:
 		    @echo "key.store.password=$(KEY_STORE_PASSWORD)" >> build.properties
         endif
     endif
-	ant release
+	ant release -Dsdk.dir=$(ANDROID_HOME)
     endif
 	@cat .ant.propertiestmp > ant.properties
 	@cat .build.propertiestmp > build.properties
@@ -147,14 +145,14 @@ sign:
 
 restartadb:
 	@echo "\nRestarting adb..."
-	sudo $(ANDROID_SDK)/platform-tools/adb kill-server
-	sudo $(ANDROID_SDK)/platform-tools/adb start-server
+	sudo $(ANDROID_HOME)/platform-tools/adb kill-server
+	sudo $(ANDROID_HOME)/platform-tools/adb start-server
 
 devices:
-	@$(ANDROID_SDK)/platform-tools/adb devices
+	@$(ANDROID_HOME)/platform-tools/adb devices
 
 targets:
-	@$(ANDROID_SDK)/tools/android list
+	@$(ANDROID_HOME)/tools/android list
 
 log:
-	@$(ANDROID_SDK)/platform-tools/adb $(DEVICE_CMD) logcat
+	@$(ANDROID_HOME)/platform-tools/adb $(DEVICE_CMD) logcat

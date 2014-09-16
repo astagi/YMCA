@@ -1,9 +1,7 @@
 YMCA (You Make Cool Apps)
 =========================
 
-Makefile for building Android apps using Ant.
-
-I made it cause I'm on vacation and I have just my (slow^33) netbook with me. Do you think I wanna run Eclipse on it? :)
+Makefile for building and running Android apps using Ant.
 
 Requirements
 ------------
@@ -16,7 +14,7 @@ Requirements
 Configuration parameters
 ------------------------
 
-- ANDROID_SDK  The path where the Android SDK is placed on your system.
+- ANDROID_HOME The path where the Android SDK is placed on your system.
 
 - TARGET       The Android target. For a complete list, type Makefile targets.
 
@@ -31,7 +29,7 @@ Goals
 
 - clean:        Deletes files created during the build.
 
-- sign:         Generate a signed package.
+- signed:       Generate a signed package.
 
 - upload:       Uploads the last debug apk on an attached Android device. Set DEVICE to a specified target, or to ALL for every device attached.
 
@@ -48,7 +46,7 @@ Goals
 Licence MIT
 -----------
 
-Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
+Copyright (C) 2012-2014 Andrea Stagi <stagi.andrea@gmail.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
