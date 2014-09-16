@@ -3,9 +3,9 @@
 #                            | v | |     | |  _| | _ |
 #                             |_|  |_|_|_| |___| |_|_|
 #______________________________________________________________________________________
-#                                                                           version 2.0dev
+#                                                                        version 2.0dev
 # YMCA (You Make Cool Apps)
-# Description: Makefile for building Android apps using Ant
+# Description: Makefile for building and running Android apps using Ant
 # Author: Andrea Stagi (@astagi)
 # Source: https://github.com/astagi/YMCA
 # License: MIT
@@ -37,8 +37,8 @@
 #
 # TARGET         The Android target. For a complete list, type Makefile targets.
 #
-# DEVICE         The device where you want to run your app on. Set to ALL for uploading
-#                your app on all devices attached.
+# DEVICE         The device where you want to run your app on.
+#                Set to ALL for uploading your app on all devices attached.
 #
 # ACTIVITY       The main activity you want to run.
 #

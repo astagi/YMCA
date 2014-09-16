@@ -1,9 +1,7 @@
 YMCA (You Make Cool Apps)
 =========================
 
-Makefile for building Android apps using Ant.
-
-I made it cause I'm on vacation and I have just my (slow^33) netbook with me. Do you think I wanna run Eclipse on it? :)
+Makefile for building and running Android apps using Ant.
 
 Requirements
 ------------
@@ -48,7 +46,7 @@ Goals
 Licence MIT
 -----------
 
-Copyright (C) 2012 Andrea Stagi <stagi.andrea@gmail.com>.
+Copyright (C) 2012-2014 Andrea Stagi <stagi.andrea@gmail.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
