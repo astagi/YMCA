@@ -31,7 +31,7 @@ Goals
 
 - clean:        Deletes files created during the build.
 
-- sign:         Generate a signed package.
+- signed:       Generate a signed package.
 
 - upload:       Uploads the last debug apk on an attached Android device. Set DEVICE to a specified target, or to ALL for every device attached.
 

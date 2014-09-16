@@ -55,7 +55,7 @@
 # upload-release Uploads the last signed apk on an attached Android DEVICE.
 #                Set DEVICE to a specified target, ALL for every device attached.
 #
-# sign           Generate a signed package.
+# signed         Generate a signed package.
 #
 # restartadb     Restarts adb. Sometimes needed.
 #
