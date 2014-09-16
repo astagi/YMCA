@@ -14,7 +14,7 @@ Requirements
 Configuration parameters
 ------------------------
 
-- ANDROID_SDK  The path where the Android SDK is placed on your system.
+- ANDROID_HOME The path where the Android SDK is placed on your system.
 
 - TARGET       The Android target. For a complete list, type Makefile targets.
 

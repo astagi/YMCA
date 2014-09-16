@@ -33,7 +33,7 @@
 #
 # Here is a complete list of configuration parameters:
 #
-# ANDROID_HOME    The path where the Android SDK is placed on your system.
+# ANDROID_HOME   The path where the Android SDK is placed on your system.
 #
 # TARGET         The Android target. For a complete list, type Makefile targets.
 #
